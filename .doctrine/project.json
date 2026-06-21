@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "repo": "SylphxAI/website",
+    "name": "Sylphx Website",
+    "lifecycle": "active",
+    "layer": "application",
+    "summary": "Company website frontend for Sylphx with public pages, Solid/Vite build tooling, static assets, Vercel configuration, and website-local UI behavior.",
+    "goals": [
+      "Present the Sylphx company website as a fast, maintainable, static frontend.",
+      "Keep company pages, navigation, legal pages, design-system helpers, assets, build configuration, and deployment configuration coherent.",
+      "Keep the website content-oriented and avoid hidden product or runtime coupling."
+    ],
+    "nonGoals": [
+      "Own backend product APIs, authentication, billing, customer data, or product runtime behavior.",
+      "Own shared design doctrine, reusable frontend framework policy, or all Sylphx marketing content strategy outside this site.",
+      "Publish enterprise doctrine, project manifest schema, org rulesets, rollout issue reconciliation, or shared CI policy."
+    ]
+  },
+  "boundaries": {
+    "owns": [
+      {
+        "name": "company-website-pages",
+        "description": "Public website pages, navigation, legal pages, copy, static assets, and site-local content presentation."
+      },
+      {
+        "name": "website-frontend-runtime",
+        "description": "Solid/Vite frontend setup, design-system helpers, toast state, build configuration, and website-local UI components."
+      },
+      {
+        "name": "website-deployment-config",
+        "description": "Static build and Vercel configuration used to publish the company website."
+      }
+    ],
+    "doesNotOwn": [
+      "Product backend APIs, authentication, billing, customer data, product runtime behavior, or other products' website sections.",
+      "Shared design doctrine, reusable frontend framework policy, or @sylphx/zen package behavior.",
+      "Enterprise doctrine, project manifest schema, rollout issue reconciliation, org rulesets, or shared workflow implementation."
+    ],
+    "publicSurfaces": [
+      {
+        "type": "documentation",
+        "name": "Website README",
+        "location": "README.md"
+      },
+      {
+        "type": "api",
+        "name": "Public pages",
+        "location": "src/pages/"
+      },
+      {
+        "type": "manifest",
+        "name": "Vite package scripts",
+        "location": "package.json"
+      },
+      {
+        "type": "manifest",
+        "name": "Vercel deployment config",
+        "location": "vercel.json"
+      },
+      {
+        "type": "manifest",
+        "name": "Static web assets",
+        "location": "public/"
+      },
+      {
+        "type": "manifest",
+        "name": "Project control-plane manifest",
+        "location": ".doctrine/project.json"
+      }
+    ],
+    "allowedDependencies": [
+      {
+        "repo": "SylphxAI/doctrine",
+        "surface": "project manifest schema, standards, and rollout audit",
+        "direction": "downward"
+      },
+      {
+        "repo": "SylphxAI/zen",
+        "surface": "documented @sylphx/zen package exports",
+        "direction": "downward"
+      },
+      {
+        "repo": "solidjs/solid",
+        "surface": "documented SolidJS public APIs",
+        "direction": "external"
+      }
+    ],
+    "forbiddenCouplings": [
+      "Do not add backend product runtime, auth, billing, or customer-data ownership to the company website repository.",
+      "Do not import shared packages through internal source paths instead of documented package exports.",
+      "Do not make other products depend on website-local components, copy, or deployment assumptions.",
+      "Do not publish enterprise process policy from this repository instead of SylphxAI/doctrine or SylphxAI/.github."
+    ]
+  },
+  "documentation": {
+    "adr": {
+      "path": "docs/adr/",
+      "status": "planned"
+    },
+    "specs": {
+      "path": "README.md",
+      "status": "present"
+    },
+    "catalog": {
+      "path": ".doctrine/project.json",
+      "status": "present"
+    },
+    "runbooks": {
+      "path": "README.md",
+      "status": "present"
+    },
+    "generatedReferences": {
+      "path": "public/",
+      "status": "present"
+    }
+  },
+  "delivery": {
+    "ciModel": "none",
+    "requiredContexts": [],
+    "deployPath": "No repository-local CI workflow is present; changes are validated with relevant Bun, Vite, Biome, and static preview checks, then deployed through the configured hosting path.",
+    "productionProof": "Website changes require hosting readback and smoke evidence for affected public pages, static assets, metadata, and legal routes.",
+    "recoveryClass": "source-revertable"
+  },
+  "adoption": {
+    "status": "baseline",
+    "gaps": [
+      {
+        "id": "ci-missing",
+        "description": "Add repository CI for install, build, lint, and static route smoke before relying on automated admission.",
+        "owner": "SylphxAI/website",
+        "target": "Before full adoption"
+      },
+      {
+        "id": "readme-tech-stack-drift",
+        "description": "Reconcile README technology claims with the current Solid/Vite implementation and package scripts.",
+        "owner": "SylphxAI/website",
+        "target": "Before full adoption"
+      },
+      {
+        "id": "deployment-proof-missing",
+        "description": "Document the hosting URL, preview/readback checks, and page smoke evidence required after website changes.",
+        "owner": "SylphxAI/website",
+        "target": "Before production lifecycle promotion"
+      }
+    ]
+  }
+}
